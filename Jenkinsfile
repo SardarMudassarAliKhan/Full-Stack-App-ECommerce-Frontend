@@ -1,6 +1,6 @@
 pipeline {
     agent any
-	 options {
+    options {
         disableConcurrentBuilds()
     }   
     stages {       
@@ -12,9 +12,9 @@ pipeline {
         }
         stage('Push and Deploy') {
             steps {                
-                sh 'docker stop ecom-front || true && docker rm ecom-front || true'
-                sh 'docker run -d --restart always --name ecom-front --network zohan -p 9201:80 ecom-front/ui:latest'
-
+                sh 'docker stop ecom-front || true && docker rm -f ecom-front || true'
+                // Changed port from 9201:80 to 4200:80 below:
+                sh 'docker run -d --restart always --name ecom-front --network zohan -p 4200:80 ecom-front/ui:latest'
             }
         }
     }
